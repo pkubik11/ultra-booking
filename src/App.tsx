@@ -1,19 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import './App.css';
 import MainRouter from './MainRouter';
+import Navbar from './components/Navbar';
 
 function App() {
 	return (
 		<div className="App">
 			<header className="App-header">
-				<ul>
-					<li><Link to="/">Dashboard</Link></li>
-					<li><Link to="/faq">FAQ</Link></li>
-					<li><Link to="/list">List</Link></li>
-				</ul>
-				<MainRouter />
+				<Navbar />
+				<div className="App-body">
+					<MainRouter />
+				</div>
 			</header>
 		</div>
 	);

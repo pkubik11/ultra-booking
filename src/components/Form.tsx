@@ -30,7 +30,7 @@ const Form = () => {
 	};
 	const save = (event: React.SyntheticEvent) => {
 		event.preventDefault();
-		console.table([jiraId, loggedTime, status]);
+		console.table({jiraId, loggedTime, status});
 		
 	};
 

@@ -8,12 +8,14 @@
 	color: white;
 }
 
-.App-link {
-	color: #61dafb;
-}
-
 .App-body {
-	background-color: #282c34;
+	background-color: #fff;
 	height: calc(100vh - 4rem);
 	padding-top: 20px;
+}
+
+.App-body h1 {
+	font-size: 25px;
+	font-weight: bold;
+	color: #282c34;
 }

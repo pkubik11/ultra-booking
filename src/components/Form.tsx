@@ -44,37 +44,40 @@ const Form = () => {
 								<div className="grid grid-cols-6 gap-6">
 									
 									<div className="col-span-6 sm:col-span-2">
-										<label htmlFor="jira-id" className="block text-sm font-medium text-gray-700">
+										<label htmlFor="jira-id" className="block text-left text-sm font-medium text-gray-700">
 											Jira ID	
 										</label>
 										<input
 											type="text"
 											value={jiraId}
 											name="jira-id"
+											id="jira-id"
 											className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
 											onChange={jiraIdChange}
 										/>
 									</div>
 
 									<div className="col-span-6 sm:col-span-2">
-										<label htmlFor="logged-time" className="block text-sm font-medium text-gray-700">
+										<label htmlFor="logged-time" className="block text-left text-sm font-medium text-gray-700">
 											Logged time in hours
 										</label>
 										<input
 											type="text"
 											value={loggedTime}
 											name="logged-time"
+											id="logged-time"
 											className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
 											onChange={loggedTimeChange}
 										/>
 									</div>
 
 									<div className="col-span-6 sm:col-span-2">
-										<label htmlFor="status" className="block text-sm font-medium text-gray-700">
+										<label htmlFor="status" className="block text-left text-sm font-medium text-gray-700">
 											Status
 										</label>
 										<select
 											name="status"
+											id="status"
 											className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 											onChange={selectChange}
 										>

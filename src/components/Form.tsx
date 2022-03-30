@@ -3,10 +3,10 @@ import Loader from "../assets/loader";
 import { StatusEnum } from "../enums/status";
 
 type Props = {
-	addTask: (arg: ITask) => void,
+	save: (arg: ITask) => void;
 };
 
-const Form = ({ addTask }: Props) => {
+const Form = ({ save }: Props) => {
 	const [jiraId, setJiraId] = useState("");
 	const [loggedTime, setLoggedTime] = useState<number>(0);
 	const [status, setStatus] = useState<string>(StatusEnum.Unresolved);
@@ -37,12 +37,12 @@ const Form = ({ addTask }: Props) => {
 		const value = event.target.value;
 		setJiraId(value);
 	};
-	const save = async (event: React.SyntheticEvent) => {
+	const saveHandler = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
 		setLoading(true);
 		
 
-		await addTask({ jiraId, loggedTime, status });
+		await save({ jiraId, loggedTime, status });
 		setJiraId("");
 		setLoggedTime(0);
 		setStatus(StatusEnum.Unresolved);
@@ -53,7 +53,7 @@ const Form = ({ addTask }: Props) => {
 		<>
 			<div className="form mt-10 sm:mt-0">
 				<div className="mt-5 md:mt-0 md:col-span-2">
-					<form onSubmit={save}>
+					<form onSubmit={saveHandler}>
 						<div className="shadow overflow-hidden sm:rounded-md">
 							<div className="px-4 py-5 bg-white sm:p-6">
 								<div className="grid grid-cols-6 gap-6">

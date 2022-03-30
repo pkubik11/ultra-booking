@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -17,11 +16,11 @@ const List = () => {
 			<div className="px-4 py-5">
 				<section className="py-5">
 					<h1 className="text-left">Create new task</h1>
-					<Form addTask={addTask} />
+					<Form save={addTask} />
 				</section>
 				<section className="py-5">
 					<h1 className="text-left">Backlog</h1>
-					<Table taskList={taskList} removeTask={removeTask} />
+					<Table taskList={taskList} removeTask={removeTask} editTask={editTask} />
 				</section>
 			</div>
 		</>

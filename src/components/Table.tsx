@@ -1,18 +1,25 @@
 import { useState } from "react";
 import Loader from "../assets/loader";
 import { StatusEnum } from "../enums/status";
+import Form from "../components/Form";
 
 type Props = {
 	taskList: ITask[],
 	removeTask: (arg: ITask) => void,
+	editTask: (arg: ITask) => void,
 };
-const Table = ({ taskList, removeTask }: Props) => {
-	const [loadingIndex, setloadingIndex] = useState<number>();
+const Table = ({ taskList, removeTask, editTask }: Props) => {
+	const [loadingIndex, setLoadingIndex] = useState<number>();
+	const [editModeIndex, setEditModeIndex] = useState<number>();
 
 	const removeTaskHandler = async(task: ITask) => {
-		setloadingIndex(task.id)
+		setLoadingIndex(task.id)
 		await removeTask(task);
 	}
+
+	const editModeHandler = (task: ITask) => {
+		setEditModeIndex(task.id);
+	};
 
 	return (
 		<>
@@ -47,38 +54,49 @@ const Table = ({ taskList, removeTask }: Props) => {
 								<tbody className="bg-white divide-y divide-gray-200">
 									{taskList.map(task => (
 										<tr key={task.id}>
-											<td className="px-6 py-4 text-left whitespace-nowrap">
-												<div className="text-sm font-medium text-gray-900">{task.jiraId}</div>
-											</td>
-											<td className="px-6 py-4 text-left whitespace-nowrap">
-												<div className="text-sm text-gray-900">{task.loggedTime} hours</div>
-											</td>
-											<td className="px-6 py-4 text-left whitespace-nowrap">
-												<span
-													className={`px-2 text-left inline-flex text-xs leading-5 font-semibold rounded-full ${task.status === StatusEnum.Done ? "bg-green-100 text-green-800" : "text-black"}`}
-												>
-													{task.status}
-												</span>
-											</td>
-											<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-												<button className="py-2 px-4 mr-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-													Edit
-												</button>
-												<button
-													className="disabled:bg-red-400 py-2 px-4 ml-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-													onClick={() => removeTaskHandler(task)}
-													disabled={task.id === loadingIndex}
-												>
-													{task.id === loadingIndex ? (
-														<>
-															<Loader />
-															Processing...
-														</>
-													): (
-															<>Remove</>
-													)}
-												</button>
-											</td>
+											{task.id === editModeIndex ? (
+												<td colSpan={4}>
+													<Form save={editTask} />
+												</td>
+											): (
+												<>
+													<td className="px-6 py-4 text-left whitespace-nowrap">
+														<div className="text-sm font-medium text-gray-900">{task.jiraId}</div>
+													</td>
+													<td className="px-6 py-4 text-left whitespace-nowrap">
+														<div className="text-sm text-gray-900">{task.loggedTime} hours</div>
+													</td>
+													<td className="px-6 py-4 text-left whitespace-nowrap">
+														<span
+															className={`px-2 text-left inline-flex text-xs leading-5 font-semibold rounded-full ${task.status === StatusEnum.Done ? "bg-green-100 text-green-800" : "text-black"}`}
+														>
+															{task.status}
+														</span>
+													</td>
+													<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+														<button
+															className="py-2 px-4 mr-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+															onClick={() => editModeHandler(task)}
+														>
+															Edit
+														</button>
+														<button
+															className="disabled:bg-red-400 py-2 px-4 ml-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+															onClick={() => removeTaskHandler(task)}
+															disabled={task.id === loadingIndex}
+														>
+															{task.id === loadingIndex ? (
+																<>
+																	<Loader />
+																	Processing...
+																</>
+															): (
+																	<>Remove</>
+															)}
+														</button>
+													</td>
+												</>
+											)}
 										</tr>
 									))}
 								</tbody>

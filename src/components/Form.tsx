@@ -4,13 +4,15 @@ import { StatusEnum } from "../enums/status";
 
 type Props = {
 	save: (arg: ITask) => void;
+	data?: ITask;
 	children?: JSX.Element;
 };
 
-const Form = ({ save, children }: Props) => {
-	const [jiraId, setJiraId] = useState("");
-	const [loggedTime, setLoggedTime] = useState<number>(0);
-	const [status, setStatus] = useState<string>(StatusEnum.Unresolved);
+const Form = ({ save, data, children }: Props) => {
+	const [jiraId, setJiraId] = useState(data?.jiraId || "");
+	const [loggedTime, setLoggedTime] = useState<number>(data?.loggedTime || 0);
+	const [status, setStatus] = useState<string>(data?.status || StatusEnum.Unresolved);
+	
 	const [disabled, setDisabled] = useState<boolean>(true);
 	const [loading, setLoading] = useState<boolean>(false);
 
@@ -41,9 +43,8 @@ const Form = ({ save, children }: Props) => {
 	const saveHandler = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
 		setLoading(true);
-		
 
-		await save({ jiraId, loggedTime, status });
+		await save({ jiraId, loggedTime, status, ...(data && {id: data.id}) });
 		setJiraId("");
 		setLoggedTime(0);
 		setStatus(StatusEnum.Unresolved);

@@ -28,6 +28,11 @@ const Table = ({ taskList, removeTask, editTask }: Props) => {
 		setEditModeIndex(task.id);
 	};
 
+	const saveHandler = async (task: ITask) => {
+		await editTask(task);
+		setEditModeIndex(0);
+	};
+
 	return (
 		<>
 			<div className="backlog flex flex-col">
@@ -63,7 +68,7 @@ const Table = ({ taskList, removeTask, editTask }: Props) => {
 										<tr key={task.id}>
 											{task.id === editModeIndex ? (
 												<td colSpan={4}>
-													<Form save={editTask} children={cancelButton} />
+													<Form save={saveHandler} data={task} children={cancelButton} />
 												</td>
 											): (
 												<>

@@ -4,9 +4,10 @@ import { StatusEnum } from "../enums/status";
 
 type Props = {
 	save: (arg: ITask) => void;
+	children?: JSX.Element;
 };
 
-const Form = ({ save }: Props) => {
+const Form = ({ save, children }: Props) => {
 	const [jiraId, setJiraId] = useState("");
 	const [loggedTime, setLoggedTime] = useState<number>(0);
 	const [status, setStatus] = useState<string>(StatusEnum.Unresolved);
@@ -119,6 +120,7 @@ const Form = ({ save }: Props) => {
 											<>Save</>
 									)}
 								</button>
+								{children}
 							</div>
 						</div>
 					</form>

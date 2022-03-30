@@ -11,6 +11,13 @@ type Props = {
 const Table = ({ taskList, removeTask, editTask }: Props) => {
 	const [loadingIndex, setLoadingIndex] = useState<number>();
 	const [editModeIndex, setEditModeIndex] = useState<number>();
+	const cancelButton = 
+		<button
+			className="py-2 px-4 ml-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+			onClick={() => {setEditModeIndex(0)}}
+		>
+			Cancel
+		</button>
 
 	const removeTaskHandler = async(task: ITask) => {
 		setLoadingIndex(task.id)
@@ -56,7 +63,7 @@ const Table = ({ taskList, removeTask, editTask }: Props) => {
 										<tr key={task.id}>
 											{task.id === editModeIndex ? (
 												<td colSpan={4}>
-													<Form save={editTask} />
+													<Form save={editTask} children={cancelButton} />
 												</td>
 											): (
 												<>

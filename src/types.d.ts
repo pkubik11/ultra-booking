@@ -1,8 +1,8 @@
 interface ITask {
-	id: number,
-	jiraId: string,
-  loggedTime: number,
-  status: string,
+	id?: number;
+	jiraId: string;
+  loggedTime: number;
+  status: string;
 }
 
 type TaskState = {

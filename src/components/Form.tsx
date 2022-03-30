@@ -1,16 +1,25 @@
-import React, { useState } from "react";
-import "../styles/Form.css";
+import React, { useState, useEffect } from "react";
+import Loader from "../assets/loader";
+import { StatusEnum } from "../enums/status";
 
-enum StatusEnum {
-	Unresolved = "Unresolved",
-	Done = "Done",
-	InProgress = "In Progress",
+type Props = {
+	addTask: (arg: ITask) => void,
 };
 
-const Form = () => {
+const Form = ({ addTask }: Props) => {
 	const [jiraId, setJiraId] = useState("");
 	const [loggedTime, setLoggedTime] = useState<number>(0);
 	const [status, setStatus] = useState<string>(StatusEnum.Unresolved);
+	const [disabled, setDisabled] = useState<boolean>(true);
+	const [loading, setLoading] = useState<boolean>(false);
+
+	useEffect(() => {
+		if (jiraId && loggedTime) {
+			setDisabled(false);
+		} else {
+			setDisabled(true);
+		}
+	}, [jiraId, loggedTime]);
 
 	const selectChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
 		const value = event.target.value;
@@ -28,11 +37,16 @@ const Form = () => {
 		const value = event.target.value;
 		setJiraId(value);
 	};
-	const save = (event: React.SyntheticEvent) => {
+	const save = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
-		// console.table({jiraId, loggedTime, status});
-		//dispatch as ITask
+		setLoading(true);
 		
+
+		await addTask({ jiraId, loggedTime, status });
+		setJiraId("");
+		setLoggedTime(0);
+		setStatus(StatusEnum.Unresolved);
+		setLoading(false);
 	};
 
 	return (
@@ -93,9 +107,17 @@ const Form = () => {
 							<div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
 								<button
 									type="submit"
-									className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+									className="disabled:bg-indigo-400 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+									disabled={disabled || loading}
 								>
-									Save
+									{loading ? (
+										<>
+											<Loader />
+											Processing...
+										</>
+									): (
+											<>Save</>
+									)}
 								</button>
 							</div>
 						</div>

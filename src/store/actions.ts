@@ -28,9 +28,8 @@ export const removeTask = (payload: ITask) => {
 };
 
 export function fakeRequest(action: TaskAction) {
-	return (dispatch: DispatchType) => {
-		setTimeout(() => {
-			dispatch(action);
-		}, 350);
-	};
+	return async (dispatch: DispatchType) => {
+		await new Promise((resolve) => setTimeout(resolve, 1500));
+		dispatch(action);
+	}
 }

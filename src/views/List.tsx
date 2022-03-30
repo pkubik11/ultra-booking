@@ -13,16 +13,14 @@ const List = () => {
 
 	return (
 		<>
-			<div className="px-4 py-5">
-				<section className="py-5">
-					<h1 className="text-left">Create new task</h1>
-					<Form save={addTask} />
-				</section>
-				<section className="py-5">
-					<h1 className="text-left">Backlog</h1>
-					<Table taskList={taskList} removeTask={removeTask} editTask={editTask} />
-				</section>
-			</div>
+			<section className="py-5">
+				<h1 className="text-left text-3xl">Create new task</h1>
+				<Form save={addTask} />
+			</section>
+			<section className="py-5">
+				<h1 className="text-left text-3xl">Backlog</h1>
+				<Table taskList={taskList} removeTask={removeTask} editTask={editTask} />
+			</section>
 		</>
 	);
 }

@@ -13,9 +13,3 @@
 	height: calc(100vh - 4rem);
 	padding-top: 20px;
 }
-
-.App-body h1 {
-	font-size: 25px;
-	font-weight: bold;
-	color: #282c34;
-}

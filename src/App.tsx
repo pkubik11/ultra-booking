@@ -10,7 +10,7 @@ function App() {
 			<header className="App-header">
 				<Navbar />
 			</header>
-			<div className="App-body">
+			<div className="App-body max-w-5xl mx-auto px-4 py-5">
 				<MainRouter />
 			</div>
 		</div>

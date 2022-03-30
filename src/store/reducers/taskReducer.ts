@@ -33,10 +33,6 @@ const taskReducer = (
 	state: TaskState = initialState,
 	action: TaskAction,
 ): TaskState => {
-	// let ret: TaskState = {
-	// 	...state,
-		
-	// };
 	switch (action.type) {
 		case actionTypes.ADD_TASK:
 			const newTask: ITask = {

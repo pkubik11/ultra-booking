@@ -60,7 +60,7 @@ const Table = ({ taskList, removeTask, editTask }: Props) => {
 										>
 											Status
 										</th>
-										<th scope="col"></th>
+										<th scope="col" className="w-[280px]"></th>
 									</tr>
 								</thead>
 								<tbody className="bg-white divide-y divide-gray-200">

@@ -45,10 +45,12 @@ const Form = ({ save, data, children }: Props) => {
 		setLoading(true);
 
 		await save({ jiraId, loggedTime, status, ...(data && {id: data.id}) });
-		setJiraId("");
-		setLoggedTime(0);
-		setStatus(StatusEnum.Unresolved);
-		setLoading(false);
+		if (!data) {
+			setJiraId("");
+			setLoggedTime(0);
+			setStatus(StatusEnum.Unresolved);
+			setLoading(false);
+		}
 	};
 
 	return (

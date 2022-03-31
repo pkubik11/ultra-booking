@@ -13,7 +13,7 @@ const Table = ({ taskList, removeTask, editTask }: Props) => {
 	const [editModeIndex, setEditModeIndex] = useState<number>();
 	const cancelButton = 
 		<button
-			className="py-2 px-4 ml-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+			className="disabled:bg-red-400 py-2 px-4 ml-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
 			onClick={() => {setEditModeIndex(0)}}
 			disabled={loadingIndex !== 0}
 		>
@@ -91,7 +91,7 @@ const Table = ({ taskList, removeTask, editTask }: Props) => {
 													</td>
 													<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
 														<button
-															className="py-2 px-4 mr-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+															className="disabled:bg-indigo-400 py-2 px-4 mr-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 															onClick={() => editModeHandler(task)}
 															disabled={loadingIndex !== 0}
 														>

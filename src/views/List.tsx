@@ -18,7 +18,7 @@ const List = () => {
 				<Form save={addTask} />
 			</section>
 			<section className="py-5">
-				<h1 className="text-left text-3xl">Backlog</h1>
+				<h1 className="text-left text-3xl">List</h1>
 				<Table taskList={taskList} removeTask={removeTask} editTask={editTask} />
 			</section>
 		</>

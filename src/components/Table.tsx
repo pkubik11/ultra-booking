@@ -9,19 +9,21 @@ type Props = {
 	editTask: (arg: ITask) => void,
 };
 const Table = ({ taskList, removeTask, editTask }: Props) => {
-	const [loadingIndex, setLoadingIndex] = useState<number>();
+	const [loadingIndex, setLoadingIndex] = useState<number>(0);
 	const [editModeIndex, setEditModeIndex] = useState<number>();
 	const cancelButton = 
 		<button
 			className="py-2 px-4 ml-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
 			onClick={() => {setEditModeIndex(0)}}
+			disabled={loadingIndex !== 0}
 		>
 			Cancel
 		</button>
 
 	const removeTaskHandler = async(task: ITask) => {
-		setLoadingIndex(task.id)
+		setLoadingIndex(task.id!);
 		await removeTask(task);
+		setLoadingIndex(0);
 	}
 
 	const editModeHandler = (task: ITask) => {
@@ -29,8 +31,10 @@ const Table = ({ taskList, removeTask, editTask }: Props) => {
 	};
 
 	const saveHandler = async (task: ITask) => {
+		setLoadingIndex(task.id!);
 		await editTask(task);
 		setEditModeIndex(0);
+		setLoadingIndex(0);
 	};
 
 	return (
@@ -89,13 +93,14 @@ const Table = ({ taskList, removeTask, editTask }: Props) => {
 														<button
 															className="py-2 px-4 mr-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 															onClick={() => editModeHandler(task)}
+															disabled={loadingIndex !== 0}
 														>
 															Edit
 														</button>
 														<button
 															className="disabled:bg-red-400 py-2 px-4 ml-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
 															onClick={() => removeTaskHandler(task)}
-															disabled={task.id === loadingIndex}
+															disabled={loadingIndex !== 0}
 														>
 															{task.id === loadingIndex ? (
 																<>
